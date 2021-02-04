@@ -50,9 +50,8 @@ class Stage {
 
 
 	static def buildMaven(script) {
-
-		script.sh 'mvn clean && mvn compile'
 		parseProjectParameters(script, 'pom.xml')  // Inicializa {{ variables de remplazo }}
+		script.sh 'mvn clean && mvn compile'
 	}
 
 
