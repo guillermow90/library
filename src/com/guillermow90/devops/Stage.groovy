@@ -55,6 +55,18 @@ class Stage {
 	}
 
 
-
+	static def testJUnit(script) {
+		script.sh '''set +x
+			mvn \
+			-Dmaven.compile.skip=true \
+			test
+		'''
+		def exitCode = script.sh(
+			script: 'find target/surefire-reports -name TEST*.xml | grep .',
+			returnStatus: true)
+		if(exitCode == 0) {
+			script.junit 'target/surefire-reports/TEST*.xml'
+		}
+	}
 
 }
